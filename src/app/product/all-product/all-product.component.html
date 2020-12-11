@@ -1,0 +1,46 @@
+
+<div class="container margc ">
+
+    <div class="mbutton">
+      <button type="submit"  (click)=  navigatetoAddProduct()  class="btn btn-primary btn-round mbutton" >ADD PRODUCT</button>
+  
+    </div>
+    <div class="table-responsive">
+    
+        <table class="table  marg ">
+            <thead>
+              <tr>
+                <th scope="col"scope="col" style="width: 5%"  >#</th>
+                <th scope="col" style="width: 15%" >Name</th>
+                <th scope="col" style="width: 15%">Price </th>
+                <th scope="col" style="width: 15%">Available Stock</th>
+                <th scope="col"style="width: 15%" >Category Product</th>
+                <th scope="col"style="width: 30%" >Description</th>
+    
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of productService.listSubjectProduct.value; index as i "  >
+                <th scope="row">{{i}}</th>
+                <td>{{t.name}}</td>
+                <td>{{t.price}}</td>
+                <td>{{t.availableStock}}</td>
+                <td>{{t.categoryProduct!.name}}</td>
+                <td>{{t.description}}</td>
+                
+                <td style="white-space: nowrap">
+                    <a  class="btn btn-sm btn-primary mr-1" routerLink="/admin/all-product/{{t.id}}" >Edit</a>
+                    <button class="btn btn-sm btn-danger btn-delete-user" (click)="productService.deleteProduct(t.id!)" >
+                        
+                        <span >Delete</span>
+                    </button>
+                </td>
+              </tr>
+             
+             
+              
+            </tbody>
+          </table>
+         
+    </div>
+    </div>

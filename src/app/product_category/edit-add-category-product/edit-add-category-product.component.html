@@ -1,0 +1,34 @@
+<div class="container mtop"> 
+     
+    <div class="card-body">
+      <form [formGroup]="catForm" (ngSubmit)="addOReditCategoryProduct()" >
+       
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"  class="form-control" placeholder="category name" formControlName="name" [ngModel]="categoryproductService.subjectCategoryProduct.value.name">
+            </div>
+          </div>
+      
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Discription</label>
+              <textarea  formControlName="description" placeholder="description category"  class="form-control textarea" [ngModel]="categoryproductService.subjectCategoryProduct.value.description" >Discription Category Product </textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          
+      
+        <div class="update ml-auto mr-auto">
+          <button type="submit" [title]="" class="btn btn-primary btn-round">{{categoryproductService.subjecttitleButton.value}} </button>
+
+
+    </div>
+  </div>
+  
