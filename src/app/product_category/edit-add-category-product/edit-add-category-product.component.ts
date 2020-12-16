@@ -11,34 +11,30 @@ import { ProductCategoryService } from 'src/app/services/product-category.servic
 })
 export class EditAddCategoryProductComponent implements OnInit {
 
-  name!: string;
-  description!: string;
-  iserror:boolean=false;
+  iserror: boolean = false;
   catForm!: FormGroup;
 
-  private _isshow = false;
- 
-  iss="rrrrrr"
+
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute,public errorService:ErrorService) { }
+    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute, public errorService: ErrorService) { }
 
   ngOnInit(): void {
 
     this.initCatForm();
     this.initEditCategoryProduct();
-   // this.errorService.subjectIsError.next(true);
+    // this.errorService.subjectIsError.next(true);
   }
 
 
 
   addOReditCategoryProduct() {
 
-    if (this.formControls.name.valid && this.formControls.description.valid) {
+    if (this.categoryproductService.validateSendCategoory()) {
       this.categoryproductService.subjectIsUpdate.value == true ?
         this.updateCategoryProductt(this.categoryproductService.subjectCurrentEditId.value) :
         this.addCategoryProductt()
     }
-   // this.isError();
+    // this.isError();
 
   }
 
@@ -120,19 +116,14 @@ export class EditAddCategoryProductComponent implements OnInit {
   }
 
 
-  isError(){
+  isError() {
 
-    this.errorService.subjectIsError.subscribe(v=>{this.iserror=v})
-this.iserror=this.errorService.subjectIsError.value
-console.log(this.iserror)
+    this.errorService.subjectIsError.subscribe(v => { this.iserror = v })
+    this.iserror = this.errorService.subjectIsError.value
+    console.log(this.iserror)
 
   }
 
-  public get isshow() {
-    return this._isshow;
-  }
-  public set isshow(value) {
-    this._isshow = value;
-  }
+
 
 }

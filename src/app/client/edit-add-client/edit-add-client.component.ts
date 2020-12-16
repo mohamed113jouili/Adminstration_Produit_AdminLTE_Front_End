@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Client } from 'src/app/models/client';
 import { ClientService } from 'src/app/services/client.service';
 import { ErrorService } from 'src/app/services/error.service';
 
@@ -14,8 +15,7 @@ import { ErrorService } from 'src/app/services/error.service';
 })
 export class EditAddClientComponent implements OnInit {
   clientForm!: FormGroup;
-  inputDate="2013-01-08"
-  inputPhonenumber=+216897345
+  inputDate = "12/3/2020"
 
   constructor(private router: Router, private formBuilder: FormBuilder,
     public clientService: ClientService, private arouter: ActivatedRoute) { }
@@ -23,6 +23,7 @@ export class EditAddClientComponent implements OnInit {
   ngOnInit(): void {
     this.initClientForm();
     this.initEditClient();
+
   }
 
 
@@ -30,10 +31,8 @@ export class EditAddClientComponent implements OnInit {
 
   addOReditClient() {
 
-    if (this.formControls.firstname.valid && this.formControls.lastname.valid
-      && this.formControls.address && this.formControls.email.valid
-      && this.formControls.registerDate.valid && this.formControls.phoneNumber.valid
-      && this.formControls.zipcode.valid && this.formControls.city.valid) {
+    if (this.clientService.validateSend()) {
+
       this.clientService.subjectIsUpdate.value == true ?
         this.updateClient(this.clientService.subjectCurrentEditId.value) :
         this.addClient()
@@ -45,7 +44,12 @@ export class EditAddClientComponent implements OnInit {
   // add client 
   addClient() {
 
-    this.clientService.saveClient(this.clientForm.value).toPromise().then(
+
+    let client: Client = this.clientForm.value;
+
+    console.log(this.updatePhoneNumberFormat(client))
+
+    this.clientService.saveClient(this.updatePhoneNumberFormat(client)).toPromise().then(
 
       rep => {
         console.log(rep)
@@ -60,8 +64,9 @@ export class EditAddClientComponent implements OnInit {
 
   //update client 
   updateClient(id: number) {
-
-    this.clientService.updateClient(id, this.clientForm.value).toPromise().then(
+    let client: Client = this.clientForm.value;
+    console.log(this.updatePhoneNumberFormat(client))
+    this.clientService.updateClient(id, this.updatePhoneNumberFormat(client)).toPromise().then(
 
       rep => {
         console.log(rep)
@@ -107,14 +112,13 @@ export class EditAddClientComponent implements OnInit {
       }
       else {
         {
-          this.clientService.subjectClient.value.firstname= ""
-          this.clientService.subjectClient.value.lastname= ""
-          this.clientService.subjectClient.value.address= ""
-          this.clientService.subjectClient.value.zipcode= undefined
-          this.clientService.subjectClient.value.city= ""
-          this.clientService.subjectClient.value.email= ""
-          //this.clientService.subjectClient.value.date.toDateString()
-
+          this.clientService.subjectClient.value.firstname = ""
+          this.clientService.subjectClient.value.lastname = ""
+          this.clientService.subjectClient.value.address = ""
+          this.clientService.subjectClient.value.zipcode = undefined
+          this.clientService.subjectClient.value.city = ""
+          this.clientService.subjectClient.value.email = ""
+          this.clientService.subjectClient.value.phoneNumber = ""
           this.clientService.subjecttitleButton.next("Add  Client");
           this.clientService.subjectIsUpdate.next(false);
         }
@@ -123,8 +127,6 @@ export class EditAddClientComponent implements OnInit {
 
     });
   }
-
-
 
 
   get formControls() {
@@ -136,6 +138,32 @@ export class EditAddClientComponent implements OnInit {
 
   }
 
- 
- 
+
+  updatePhoneNumberFormat(client: Client) {
+    var array: string[] = Array.from(client.phoneNumber!);
+
+    let correctPhoneNumberFormat = ""
+
+    for (let i = 0; i < array.length; i++) {
+
+
+      if (array[i] == "(" || array[i] == ")" || array[i] == "-") {
+
+        array.splice(i, 1)
+      }
+
+      correctPhoneNumberFormat = correctPhoneNumberFormat + array[i];
+
+    }
+    client.phoneNumber = "";
+    client.phoneNumber = correctPhoneNumberFormat;
+    if (!correctPhoneNumberFormat.startsWith("+")) {
+      client.phoneNumber = "+" + correctPhoneNumberFormat;
+
+    }
+
+    return client;
+
+
+  }
 }

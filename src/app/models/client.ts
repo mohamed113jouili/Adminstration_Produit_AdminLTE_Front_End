@@ -12,6 +12,3 @@ export interface Client {
 
 
 }
-
-const a: Client= {};
-const b = a.id || 0;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -9,11 +11,12 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AllProductComponent implements OnInit {
 
+  private _subjectproduct = new BehaviorSubject<number>(0);
 
   page = 1;
   pageSize = 4;
   collectionSize =12 /*this.users.length;*/
-  constructor( private router: Router,public productService:ProductService) { }
+  constructor( private router: Router,public productService:ProductService,public dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.refreshCountries();
@@ -29,7 +32,21 @@ export class AllProductComponent implements OnInit {
   }
  
 
+  showDialog(id: number) {
+    const that = this;
 
+    this._subjectproduct.next(id);
+    this.dialogService.confirmThis("Are you sure to delete?", function () {
+
+      that.productService.deleteProduct(that._subjectproduct.value)
+
+    }, function () {
+
+
+    })
+
+
+  }
 
   refreshCountries() {
     /*this.sau.cu.value

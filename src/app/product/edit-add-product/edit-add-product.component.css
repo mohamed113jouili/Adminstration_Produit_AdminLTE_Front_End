@@ -1,3 +1,8 @@
 .mtop{
     margin-top: 50px;
 }
+
+.obligatoire {
+    
+    margin-left: 2px;
+    color: red;}

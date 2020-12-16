@@ -12,29 +12,33 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './edit-add-product.component.html',
   styleUrls: ['./edit-add-product.component.css']
 })
+
 export class EditAddProductComponent implements OnInit {
 
   proForm!: FormGroup;
   sel_cat!: string;
+  isSelected = true;
+  selectedValue = ""
+  selectedCat: ProductCategory = {};
+
   constructor(private router: Router, public categoryproductService: ProductCategoryService,
-    public productService: ProductService, private formBuilder: FormBuilder,private arouter:ActivatedRoute,public errorService :ErrorService) { }
+    public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute, public errorService: ErrorService) { }
 
 
   ngOnInit(): void {
     this.categoryproductService.initCategoryProduct();
     this.initProForm();
-    this.initEditProduct() ;
+    this.initEditProduct();
+
   }
 
   addOReditProduct() {
 
-    if (this.formControls.name.valid && this.formControls.description.valid
-      && this.formControls.sel_cat_pro.valid && this.formControls.price.valid
-      && this.formControls.availableStock.valid) {
+   if (this.valdatesend()) {
       this.productService.subjectIsUpdate.value == true ?
         this.updateProduct(this.productService.subjectCurrentEditId.value) :
         this.addProduct()
-    }
+    } 
 
   }
 
@@ -72,7 +76,6 @@ export class EditAddProductComponent implements OnInit {
           this.productService.subjectProduct.value.description = ""
           this.productService.subjectProduct.value.availableStock = undefined
           this.productService.subjectProduct.value.price = undefined
-         // this.productService.subjectProduct.value.name = ""
 
           this.productService.subjecttitleButton.next("Add  Product");
           this.productService.subjectIsUpdate.next(false);
@@ -102,15 +105,36 @@ export class EditAddProductComponent implements OnInit {
 
   addProduct() {
     let product: Product = {};
-    let categoryProducta: ProductCategory = {};
 
-    categoryProducta.id = this.proForm.value.sel_cat_pro;
     product.availableStock = this.proForm.value.availableStock
     product.price = this.proForm.value.price
     product.description = this.proForm.value.description
     product.name = this.proForm.value.name
-    product.categoryProduct = categoryProducta;
-    this.productService.saveProduct(product).toPromise().then(
+    product.categoryProduct = this.selectedCat;
+
+
+
+   this.productService.saveProduct(product).toPromise().then(
+
+      rep => {
+        this.navigatetoAllProduct()
+      },
+      error => {
+      }
+
+    )  
+  }
+
+  // update product 
+  updateProduct(id: number) {
+    let product: Product = {};
+
+    product.availableStock = this.proForm.value.availableStock
+    product.price = this.proForm.value.price
+    product.description = this.proForm.value.description
+    product.name = this.proForm.value.name
+    product.categoryProduct = this.selectedCat;
+    this.productService.updateProduct(id, product).toPromise().then(
 
       rep => {
         this.navigatetoAllProduct()
@@ -121,26 +145,18 @@ export class EditAddProductComponent implements OnInit {
     )
   }
 
-  // update product 
-  updateProduct(id: number) {
-    let product: Product = {};
-    let categoryProducta: ProductCategory = {};
 
-    categoryProducta.id = this.proForm.value.sel_cat_pro;
-    product.availableStock = this.proForm.value.availableStock
-    product.price = this.proForm.value.price
-    product.description = this.proForm.value.description
-    product.name = this.proForm.value.name
-    product.categoryProduct = categoryProducta;
-    this.productService.updateProduct(id, product).toPromise().then(
+  //validate selectedCat
+  validateSendCategoory() {
+    return this.selectedCat.name?.length! > 0
+  }
 
-      rep => {
-        this.navigatetoAllProduct()
-      },
-      error => {
-      }
+  //valdate send 
+  valdatesend() {
+    return this.validateSendCategoory() &&
+      this.productService.validateProductName() &&
+      this.productService.validateProductPrice()
 
-    )
   }
 
 }

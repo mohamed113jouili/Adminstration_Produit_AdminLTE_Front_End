@@ -21,39 +21,42 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { HeaderComponent } from './admin/header/header.component';
 import { FooterComponent } from './admin/footer/footer.component';
 import { HttpErrorInterceptor } from './error_interceptor/httpErrorInterceptor ';
+import { DialogComponent } from './admin/dialog/dialog.component';
+import { DialogService } from './services/dialog.service';
+import { PhoneMaskDirective } from './directives/phone-mask.directive';
 
 
 
-const appRoutes:Routes =
+const appRoutes: Routes =
   [
-   // { path: '',  redirectTo: '/login', pathMatch: 'full' },
+    // { path: '',  redirectTo: '/login', pathMatch: 'full' },
 
-   
-   
-   // { path: 'login', component: LoginComponent },
-     //{ path: 'singup', component: SignupComponent },
 
-     {
+
+    // { path: 'login', component: LoginComponent },
+    //{ path: 'singup', component: SignupComponent },
+
+    {
       path: 'admin',
-    component: AdminComponent,
+      component: AdminComponent,
 
       children: [
 
         //{ path: '', redirectTo: 'all-client', pathMatch: 'full' },
 
-        { path: 'dashboard', component: DashboardComponent},
+        { path: 'dashboard', component: DashboardComponent },
 
-        { path: 'all-client', component: AllClientComponent},
+        { path: 'all-client', component: AllClientComponent },
         { path: 'all-client/:id', component: EditAddClientComponent },
-        { path: 'add-client', component: EditAddClientComponent } ,
+        { path: 'add-client', component: EditAddClientComponent },
 
-        { path: 'all-product', component: AllProductComponent } ,
+        { path: 'all-product', component: AllProductComponent },
         { path: 'all-product/:id', component: EditAddProductComponent },
-        { path: 'add-product', component: EditAddProductComponent} ,
+        { path: 'add-product', component: EditAddProductComponent },
 
-        { path: 'all-product-category',component : AllCategoryProductComponent } ,
+        { path: 'all-product-category', component: AllCategoryProductComponent },
         { path: 'all-product-category/:id', component: EditAddCategoryProductComponent },
-        { path: 'add-product-category', component: EditAddCategoryProductComponent } ,
+        { path: 'add-product-category', component: EditAddCategoryProductComponent },
 
 
         { path: '', redirectTo: 'admin', pathMatch: 'full' },
@@ -64,6 +67,11 @@ const appRoutes:Routes =
   ]
 
 @NgModule({
+
+exports:[
+  DialogComponent
+],
+
   declarations: [
     AppComponent,
     AllClientComponent,
@@ -78,7 +86,9 @@ const appRoutes:Routes =
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-  
+    DialogComponent,
+    PhoneMaskDirective,
+
   ],
   imports: [
     BrowserModule,
@@ -86,16 +96,21 @@ const appRoutes:Routes =
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule ,
+    BrowserAnimationsModule,
     HttpClientModule
- 
+
   ],
-  providers: [ HttpErrorInterceptor,
+  providers: [
+    HttpErrorInterceptor,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    },],
+    },
+  
+  DialogService
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,52 +1,60 @@
+<div class="container ">
+<div class="card  table-responsive margc ">
 
-<div class="container margc ">
+  <app-dialog></app-dialog>
 
+  <div class="card-header">
     <div class="mbutton">
-      <button type="submit"  (click)=  navigatetoAddClient()  class="btn btn-primary btn-round mbutton" >ADD CLIENT </button>
-  
+      <button type="submit" (click)=navigatetoAddClient() class="btn btn-primary btn-round mbutton">ADD CLIENT </button>
+
     </div>
-    <div class="table-responsive">
-    
-        <table class="table  marg ">
-            <thead>
-              <tr>
-                <th scope="col"scope="col" style="width: 5%" >#</th>
-                <th scope="col" >Firstname</th>
-                <th scope="col">Lastname </th>
-                <th scope="col" >Address</th>
-                <th scope="col" >Email</th>
-                <th scope="col" >City</th>
-                <th scope="col" >zipcode</th>
-                <th scope="col" >PhoneNumber</th>
-                <th scope="col" >RegisterDate</th>
-                <th scope="col" style="width: 10%"></th>
-    
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let t of clientService.listSubjectClient.value; index as i "  >
-                <th scope="row">{{i}}</th>
-                <td>{{t.firstname}}</td>
-                <td>{{t.lastname}}</td>
-                <td>{{t.address}}</td>
-                <td>{{t.email}}</td>
-                <td>{{t.city}}</td>
-                <td>{{t.zipcode}}</td>
-                <td>{{t.phoneNumber}}</td>
-                <td>{{t.registerDate}}</td>
-                <td style="white-space: nowrap">
-                    <a  class="btn btn-sm btn-primary mr-1" routerLink="/admin/all-client/{{t.id}}" >Edit</a>
-                    <button class="btn btn-sm btn-danger btn-delete-user" (click)="clientService.deleteClient(t.id!)" >
-                        
-                        <span >Delete</span>
-                    </button>
-                </td>
-              </tr>
-             
-             
-              
-            </tbody>
-          </table>
-         
-    </div>
-    </div>
+  </div>
+
+  <div class="card-body ">
+
+    <table class="table  marg ">
+      <thead>
+        <tr>
+          <th scope="col" scope="col" style="width: 5%">#</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname </th>
+          <th scope="col">Address</th>
+          <th scope="col">Email</th>
+          <th scope="col">City</th>
+          <th scope="col">zipcode</th>
+          <th scope="col">PhoneNumber</th>
+          <th scope="col" style="width: 10%"></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of clientService.listSubjectClient.value; index as i ">
+          <th scope="row">{{i}}</th>
+          <td>{{t.firstname}}</td>
+          <td>{{t.lastname}}</td>
+          <td>{{t.address}}</td>
+          <td>{{t.email}}</td>
+          <td>{{t.city}}</td>
+          <td>{{t.zipcode}}</td>
+          <td>{{t.phoneNumber}}</td>
+          <td style="white-space: nowrap">
+            <a class="btn btn-sm btn-primary mr-1" routerLink="/admin/all-client/{{t.id}}">Edit</a>
+            <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDialog(t.id!)">
+
+              <span>Delete</span>
+            </button>
+          </td>
+        </tr>
+
+       
+
+
+
+      </tbody>
+    </table>
+
+
+
+  </div>
+</div>
+</div>

@@ -15,7 +15,10 @@ export class ProductCategoryService {
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
   
-
+ 
+  //validate champ 
+  private _subjectvalidteName = new BehaviorSubject<boolean>(false);
+  private _subjectSelectCat = new BehaviorSubject<ProductCategory>({});
 
 
 
@@ -117,6 +120,17 @@ export class ProductCategoryService {
     )
   }
 
+  //validate name category
+
+  validateNameCategory(){
+    return this.subjectCategoryProduct.value.name?.length!>3
+  }
+
+  validateSendCategoory(){
+
+    return this.subjectCategoryProduct.value.name?.length!>3
+  }
+
 
 
   /** access method getter */
@@ -137,6 +151,19 @@ export class ProductCategoryService {
 
   public get subjectCurrentEditId() {
     return this._subjectCurrentEditId;
+  }
+  public get subjectvalidteName() {
+    return this._subjectvalidteName;
+  }
+  public set subjectvalidteName(value) {
+    this._subjectvalidteName = value;
+  }
+
+  public get subjectSelectCat() {
+    return this._subjectSelectCat;
+  }
+  public set subjectSelectCat(value) {
+    this._subjectSelectCat = value;
   }
  
 }

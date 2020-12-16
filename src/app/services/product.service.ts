@@ -5,19 +5,28 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
+import { ProductCategory } from '../models/productcategory';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
+  selectvalue = 0;
+
   private _listSubjectProduct = new BehaviorSubject<Product[]>([]);
   private _subjectProduct = new BehaviorSubject<Product>({});
   private _subjecttitleButton = new BehaviorSubject<String>("");
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
- 
- 
+
+  //validate champ 
+  private _subjectvalidteName = new BehaviorSubject<boolean>(false);
+  private _subjectvalidteCategory = new BehaviorSubject<boolean>(false);
+  private _subjectvalidtePrice = new BehaviorSubject<boolean>(false);
+  public subjectSelectCat = new BehaviorSubject<ProductCategory>({});
+
+
   constructor(public http: HttpClient) { }
 
 
@@ -31,7 +40,7 @@ export class ProductService {
   }
 
   // get Product by id 
-  getProductByid( id: number) {
+  getProductByid(id: number) {
 
     return this.http.get(`${environment.apiUrl}/product/` + id)
       .pipe(map(resp => resp as Product));
@@ -40,7 +49,7 @@ export class ProductService {
 
   // save Product 
   saveProduct(product: Product) {
-   
+
 
     return this.http.post(`${environment.apiUrl}/save/product`, product)
       .pipe(map(resp => resp as Product));
@@ -50,7 +59,7 @@ export class ProductService {
   // update Product
   updateProduct(id: number, product: Product) {
 
-    return this.http.put(`${environment.apiUrl}/update/product/` + id,product)
+    return this.http.put(`${environment.apiUrl}/update/product/` + id, product)
       .pipe(map(resp => resp as Product));
 
   }
@@ -80,24 +89,24 @@ export class ProductService {
   }
 
 
-//init in Component EditAddCategoryproductComponent
-initEditCategoryProduct(id: number) {
+  //init in Component EditAddproductComponent
+  initEditCategoryProduct(id: number) {
 
-  this.getProductByid(id).toPromise().then(
+    this.getProductByid(id).toPromise().then(
 
-    rep => {
-      console.log(rep)
+      rep => {
+        console.log(rep)
 
-      this.subjectProduct.next(rep)
+        this.subjectProduct.next(rep)
 
 
-    },
-    error => {
-      console.log(error)
-    }
+      },
+      error => {
+        console.log(error)
+      }
 
-  )
-}
+    )
+  }
 
 
   // delete in Component Product
@@ -106,15 +115,34 @@ initEditCategoryProduct(id: number) {
     this.deleteProductByid(id).toPromise().then(
 
       rep => {
-       // filter list CategoryProduct by id deleted
-        this.listSubjectProduct.next(  this.listSubjectProduct.value.filter(function (el) {
-          return  el.id!=id;;
+        // filter list CategoryProduct by id deleted
+        this.listSubjectProduct.next(this.listSubjectProduct.value.filter(function (el) {
+          return el.id != id;;
         }))
-       },
+      },
       error => {
-       }
+      }
     )
   }
+
+  //validate name product
+
+  validateProductName() {
+    //console.log(this.subjectProduct.value.name);
+
+    return this.subjectProduct.value.name?.length! > 3
+  }
+
+
+  //validate price product
+
+  validateProductPrice() {
+    console.log(this.subjectProduct.value.price)
+
+    return this.subjectProduct.value.price! > 0
+  }
+
+
 
   /** access method getter */
   public get listSubjectProduct() {
@@ -134,6 +162,27 @@ initEditCategoryProduct(id: number) {
 
   public get subjectCurrentEditId() {
     return this._subjectCurrentEditId;
+  }
+
+  public get subjectvalidteName() {
+    return this._subjectvalidteName;
+  }
+  public set subjectvalidteName(value) {
+    this._subjectvalidteName = value;
+  }
+
+  public get subjectvalidteCategory() {
+    return this._subjectvalidteCategory;
+  }
+  public set subjectvalidteCategory(value) {
+    this._subjectvalidteCategory = value;
+  }
+
+  public get subjectvalidtePrice() {
+    return this._subjectvalidtePrice;
+  }
+  public set subjectvalidtePrice(value) {
+    this._subjectvalidtePrice = value;
   }
 
 
