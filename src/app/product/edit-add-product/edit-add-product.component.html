@@ -1,7 +1,31 @@
-<div class="container mtop">    
-    
-  <div class="card-body">
-    <form [formGroup]="proForm" (ngSubmit)="addOReditProduct()">
+<!-- Content Header (Page header) -->
+<section class="content-header  ">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Add New Product</h3>
+
+
+      </div>
+     
+      <!-- /.card-header -->
+      <div class="card-body">
+       <form [formGroup]="proForm" (ngSubmit)="addOReditProduct()">
       <div class="row">
 
         <div class="col-md-3 px-1">
@@ -77,19 +101,40 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        
-    
-    
-      <div class="update ml-auto mr-auto">
-        <button type="submit"  [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true,
-        'disabled':!valdatesend()}">{{productService.subjecttitleButton.value}} </button>
-      </div>
-      </div>
+      
 
 
     </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+
+        <div class="row">
+
+          <div class="col-3">
+
+            <div class="update ml-auto mr-auto">
+              <button type="submit" (click)= addOReditProduct()
+               [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true,
+              'disabled':!valdatesend()}">{{productService.subjecttitleButton.value}} </button>
+            </div>
+
+
+          </div>
+          <div class="col-4">
+
+            <div class="update ml-auto mr-auto">
+              <button type="submit" (click)=navigatetoAllProduct() 
+               [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true}">Cancel </button>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
-
-</div>
-
+  <!-- /.container-fluid -->
+</section>

@@ -1,7 +1,31 @@
-<div class="container mtop">
+<!-- Content Header (Page header) -->
+<section class="content-header  ">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
 
-  <div class="card-body">
-    <form [formGroup]="catForm" (ngSubmit)="addOReditCategoryProduct()">
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default card-primary">
+      <div class="card-header">
+        <h3 class="card-title">ADD CATEGORY PRODUCT </h3>
+
+
+      </div>
+     
+      <!-- /.card-header -->
+      <div class="card-body">
+        <form [formGroup]="catForm" (ngSubmit)="addOReditCategoryProduct()">
 
       <div class="row">
         <div class="col-md-12">
@@ -29,11 +53,38 @@
         </div>
       </div>
 
-      <div class="row">
+   
+    </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
 
+        <div class="row">
 
-        <div class="update ml-auto mr-auto">
-          <button type="submit"  [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true,
+          <div class="col-3">
+
+              <div class="update ml-auto mr-auto">
+          <button type="submit" (click)=addOReditCategoryProduct()
+           [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true,
           'disabled':!categoryproductService.validateSendCategoory()}">{{categoryproductService.subjecttitleButton.value}} </button>
         </div>
+
+
+          </div>
+          <div class="col-4">
+
+            <div class="update ml-auto mr-auto">
+              <button type="submit" (click)=navigatetoAllCategoryProduct()
+               [ngClass]="{'btn':true,'btn-primary':true,'btn-round':true}">Cancel </button>
+            </div>
+
+
+          </div>
+        </div>
       </div>
+    </div>
+
+
+  </div>
+  <!-- /.container-fluid -->
+</section>

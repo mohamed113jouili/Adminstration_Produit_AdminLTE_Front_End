@@ -1,54 +1,147 @@
-<div class="container ">
-  <div class="card  table-responsive margc ">
-  
-    <app-dialog></app-dialog>
-  
-    <div class="card-header">
-     <div class="mbutton">
-          <button type="submit" (click)=navigatetoAddProduct() class="btn btn-primary btn-round mbutton">ADD
-            PRODUCT</button>
-  
+<div class="" style="min-height: 1322.44px;">
+  <!-- Content Header (Page header) -->
+
+  <app-dialog></app-dialog>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <button type="submit" (click)=navigatetoAddProduct() class="btn btn-primary btn-round ">ADD PRODUCT  </button>
         </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+      <!-- /.card -->
+      <div class="card ">
+        <div class="card-header">
+          <h3 class="card-title">Show All Product </h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row mdiv ">
+              <div class="col-sm-12 col-md-6">
+                <div class="dt-buttons btn-group flex-wrap"> <button
+                    class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1"
+                    type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5"
+                    tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> <button
+                    class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1"
+                    type="button"><span>Excel</span></button> <button
+                    class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1"
+                    type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0"
+                    aria-controls="example1" type="button"><span>Print</span></button>
+                  <div class="btn-group"><button
+                      class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0"
+                      aria-controls="example1" type="button" aria-haspopup="true" aria-expanded="false"><span>Column
+                        visibility</span></button></div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4 marg">
+                <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search"
+                      class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <table id="example1"
+                  class="table table-bordered table-striped dataTable dtr-inline collapsed table-responsive  "
+                  role="grid" aria-describedby="example1_info">
+                  <thead>
+                    <tr role="row">
+                      <th scope="col" scope="col" style="width: 5%">#</th>
+
+                      <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+                         Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                        aria-label="Browser: activate to sort column ascending" style="">Price </th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                        aria-label="Platform(s): activate to sort column ascending" style="">Available Stock</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                        aria-label="Engine version: activate to sort column ascending" style="">Category Product</th>
+
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                        aria-label="Engine version: activate to sort column ascending" style="width: 30%">Description</th>
+
+                    
+
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr role="row" class="even" *ngFor="let t of productService.listSubjectProduct.value; index as i ">
+                      <th scope="row">{{i}}</th>
+                      <td class="sorting_1 dtr-control">{{t.name}}</td>
+                      <td>{{t.price}}</td>
+                      <td>{{t.availableStock}}</td>
+                      <td>{{t.categoryProduct!.name}}</td>
+                      <td>{{t.description}}</td>
+                      <td style="white-space: nowrap">
+                        <a class="btn btn-sm btn-primary mr-1" routerLink="/admin/all-product/{{t.id}}">Edit</a>
+                        <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDialog(t.id!)">
+
+                          <span>Delete</span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th scope="col" scope="col" style="width: 5%">#</th>
+                        <th rowspan="1" colspan="1"> Name</th>
+                      <th rowspan="1" colspan="1" style="">Price </th>
+                      <th rowspan="1" colspan="1" style="">Available Stock</th>
+                      <th rowspan="1" colspan="1" style="">Category Product</th>
+                      <th rowspan="1"  colspan="1" style="width: 30%">Description</th>
+                  
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of
+                  57 entries</div>
+              </div>
+              <div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                  <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#"
+                        aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                    <li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1"
+                        tabindex="0" class="page-link">1</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2"
+                        tabindex="0" class="page-link">2</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3"
+                        tabindex="0" class="page-link">3</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4"
+                        tabindex="0" class="page-link">4</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5"
+                        tabindex="0" class="page-link">5</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6"
+                        tabindex="0" class="page-link">6</a></li>
+                    <li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1"
+                        data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+
     </div>
-  
-    <div class="card-body ">
-   <table class="table  marg ">
-          <thead>
-            <tr>
-              <th scope="col" scope="col" style="width: 5%">#</th>
-              <th scope="col" style="width: 15%">Name</th>
-              <th scope="col" style="width: 15%">Price </th>
-              <th scope="col" style="width: 15%">Available Stock</th>
-              <th scope="col" style="width: 15%">Category Product</th>
-              <th scope="col" style="width: 30%">Description</th>
-  
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let t of productService.listSubjectProduct.value; index as i ">
-              <th scope="row">{{i}}</th>
-              <td>{{t.name}}</td>
-              <td>{{t.price}}</td>
-              <td>{{t.availableStock}}</td>
-              <td>{{t.categoryProduct!.name}}</td>
-              <td>{{t.description}}</td>
-  
-              <td style="white-space: nowrap">
-                <a class="btn btn-sm btn-primary mr-1" routerLink="/admin/all-product/{{t.id}}">Edit</a>
-                <button class="btn btn-sm btn-danger btn-delete-user" (click)="showDialog(t.id!)">
-  
-                  <span>Delete</span>
-                </button>
-              </td>
-            </tr>
-  
-  
-  
-          </tbody>
-        </table>
-  
-  
-  
-    </div>
-  </div>
-  </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

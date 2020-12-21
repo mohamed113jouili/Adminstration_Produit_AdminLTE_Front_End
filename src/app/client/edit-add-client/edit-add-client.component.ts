@@ -166,4 +166,8 @@ export class EditAddClientComponent implements OnInit {
 
 
   }
+
+  navigatetoAllClientt() {
+    this.router.navigateByUrl("/admin/all-client")
+  }
 }
