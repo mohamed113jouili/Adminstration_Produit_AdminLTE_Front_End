@@ -4,18 +4,27 @@ import { ProductCategory } from '../models/productcategory';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { ProductService } from './product.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCategoryService {
 
+  index: number = -1;
   private _listSubjectCategoryProduct = new BehaviorSubject<ProductCategory[]>([]);
   private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>({});
   private _subjecttitleButton = new BehaviorSubject<String>("");
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
-  
- 
+
+
+  private _subjectLastSelectCategoryProduct = new BehaviorSubject<ProductCategory>({});
+  private _listSubjectupdateCategoryProduct = new BehaviorSubject<ProductCategory[]>([]);
+
+
+
+
+
   //validate champ 
   private _subjectvalidteName = new BehaviorSubject<boolean>(false);
   private _subjectSelectCat = new BehaviorSubject<ProductCategory>({});
@@ -72,8 +81,17 @@ export class ProductCategoryService {
     this.getAllCategoryProduct().toPromise().then(
 
       rep => {
-        console.log(rep)
+
+        rep.forEach((r, i) => { r.index = i })
+
+
+        // display all category
         this.listSubjectCategoryProduct.next(rep)
+
+        //for update item selected (edit product)
+        this.listSubjectupdateCategoryProduct.next(rep)
+
+
       },
       error => {
         console.log(error)
@@ -122,13 +140,36 @@ export class ProductCategoryService {
 
   //validate name category
 
-  validateNameCategory(){
-    return this.subjectCategoryProduct.value.name?.length!>3
+  validateNameCategory() {
+    return this.subjectCategoryProduct.value.name?.length! > 3
   }
 
-  validateSendCategoory(){
+  validateSendCategoory() {
 
-    return this.subjectCategoryProduct.value.name?.length!>3
+    return this.subjectCategoryProduct.value.name?.length! > 3
+  }
+
+
+
+  public getAndUpdateList() {
+
+    let ids = this.subjectLastSelectCategoryProduct.value.id
+
+    // filter  category by id 
+    this.listSubjectupdateCategoryProduct.next(this.listSubjectupdateCategoryProduct.value.filter(
+      function (caty) {
+        return caty.id != ids;
+      }
+
+    ))
+    //add category for position 1
+    this.listSubjectupdateCategoryProduct.value.push(this.subjectLastSelectCategoryProduct.value)
+
+    let list_cat = this.listSubjectupdateCategoryProduct.asObservable()
+
+    return list_cat
+
+
   }
 
 
@@ -165,5 +206,22 @@ export class ProductCategoryService {
   public set subjectSelectCat(value) {
     this._subjectSelectCat = value;
   }
+
+  public get subjectLastSelectCategoryProduct() {
+    return this._subjectLastSelectCategoryProduct
+  }
+  public set subjectLastSelectCategoryProduct(value) {
+    this._subjectLastSelectCategoryProduct = value;
+  }
+
+  public get listSubjectupdateCategoryProduct() {
+    return this._listSubjectupdateCategoryProduct;
+  }
+  public set listSubjectupdateCategoryProduct(value) {
+    this._listSubjectupdateCategoryProduct = value;
+  }
+
+
  
+  /*  */
 }

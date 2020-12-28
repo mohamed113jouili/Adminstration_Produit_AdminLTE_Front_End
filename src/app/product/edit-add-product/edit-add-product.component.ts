@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductCategory } from 'src/app/models/productcategory';
 import { ErrorService } from 'src/app/services/error.service';
@@ -17,19 +18,27 @@ export class EditAddProductComponent implements OnInit {
 
   proForm!: FormGroup;
   sel_cat!: string;
-  isSelected = true;
+  isSelected = false;
   selectedValue = ""
   selectedCat: ProductCategory = {};
+  initvalue="";
+private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.selectedCat);
+  
+
 
   constructor(private router: Router, public categoryproductService: ProductCategoryService,
     public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute, public errorService: ErrorService) { }
 
 
   ngOnInit(): void {
-    this.categoryproductService.initCategoryProduct();
+
     this.initProForm();
     this.initEditProduct();
+    console.log("select category "+this.productService.subjectSelectCat.value.name)
 
+    this.categoryproductService.initCategoryProduct();
+
+  
   }
 
   addOReditProduct() {
@@ -59,6 +68,7 @@ export class EditAddProductComponent implements OnInit {
 
 
   initEditProduct() {
+
     this.arouter.paramMap.subscribe(params => {
 
       if (params.get('id') !== null) {
@@ -66,24 +76,36 @@ export class EditAddProductComponent implements OnInit {
           this.productService.initEditCategoryProduct(Number(params.get('id')));
           this.productService.subjecttitleButton.next("Update Product");
           this.productService.subjectIsUpdate.next(true);
-          this.productService.subjectCurrentEditId.next(Number(params.get('id')));
+          this.productService.subjectCurrentEditId.next(Number(params.get('id')))
+       
+      
+
+          //console.log("category "+this.productService.subjectProduct.value.categoryProduct?.name )
+
+
         }
 
       }
       else {
         {
+
           this.productService.subjectProduct.value.name = ""
           this.productService.subjectProduct.value.description = ""
           this.productService.subjectProduct.value.availableStock = undefined
           this.productService.subjectProduct.value.price = undefined
-
           this.productService.subjecttitleButton.next("Add  Product");
           this.productService.subjectIsUpdate.next(false);
+         // this.productService.subjectProduct.next({})
+
         }
 
       }
 
     });
+
+
+    
+
   }
 
 
@@ -110,7 +132,7 @@ export class EditAddProductComponent implements OnInit {
     product.price = this.proForm.value.price
     product.description = this.proForm.value.description
     product.name = this.proForm.value.name
-    product.categoryProduct = this.selectedCat;
+    product.categoryProduct = this.productService.subjectProduct.value.categoryProduct;
 
 
 
@@ -133,7 +155,7 @@ export class EditAddProductComponent implements OnInit {
     product.price = this.proForm.value.price
     product.description = this.proForm.value.description
     product.name = this.proForm.value.name
-    product.categoryProduct = this.selectedCat;
+    product.categoryProduct = this.productService.subjectProduct.value.categoryProduct;
     this.productService.updateProduct(id, product).toPromise().then(
 
       rep => {
@@ -148,7 +170,7 @@ export class EditAddProductComponent implements OnInit {
 
   //validate selectedCat
   validateSendCategoory() {
-    return this.selectedCat.name?.length! > 0
+    return this.productService.subjectProduct.value.categoryProduct?.name?.length!>0
   }
 
   //valdate send 
@@ -157,6 +179,15 @@ export class EditAddProductComponent implements OnInit {
       this.productService.validateProductName() &&
       this.productService.validateProductPrice()
 
+  }
+
+  //getter and setter 
+
+  public get subjectCategoryProduct() {
+    return this._subjectCategoryProduct;
+  }
+  public set subjectCategoryProduct(value) {
+    this._subjectCategoryProduct = value;
   }
 
 }

@@ -54,16 +54,16 @@
               <label>
                 Select Category<span class="obligatoire"> * </span>
              </label>
-              <select   
+              <select   id="inputGroupSelect01"
 
               [ngClass]="{'form-control':true,'selectpicker':true,'show-menu-arrow':true,
               'is-valid':validateSendCategoory()}"
 
-              [(ngModel)]="selectedCat"
+              [(ngModel)]="productService.subjectProduct.value.categoryProduct"
               formControlName="sel_cat_pro"  
               >
-              <option value="" [selected]="isSelected"> ---</option>
-                <option *ngFor="let op of categoryproductService.listSubjectCategoryProduct.value" 
+          
+                <option *ngFor="let op of (categoryproductService.getAndUpdateList() |async)" 
                 [ngValue]="op">
                   {{ op.name }}
               </option>

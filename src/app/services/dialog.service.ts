@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ClientService } from './client.service';
 
 @Injectable({
@@ -7,46 +7,74 @@ import { ClientService } from './client.service';
 })
 export class DialogService {
 
-  private _subject = new Subject<any>();  
- 
-  
-  constructor(public d:ClientService){}
-  confirmThis(message: string, yesFn: () => void, noFn: () => void): any {  
-      this.setConfirmation(message, yesFn, noFn);  
-  }  
+  private _subject = new Subject<any>();
+  private _subjectButtonYesName = new BehaviorSubject<string>("Yes");
 
-  setConfirmation(message: string, yesnFn: () => void, noFn: () => void): any {  
-      const that = this;  
-      
-      this.subject.next({  
-          type: 'confirm',  
-          text: message,  
-          yesFn(): any {  
-          
-                  that.subject.next(false); // This will close the modal  
-                  
-                  yesnFn();  
-                 // that.d.deleteClient(2)
-              },  
-          noFn(): any {  
-              that.subject.next(false);  
-              noFn();  
-          }  
-      });  
+  private _subjectButtonNoName = new BehaviorSubject<string>("No");
 
-   
 
-  }  
-  
 
-  getMessage(): Observable<any> {  
-      return this.subject.asObservable();  
-  }  
+  constructor(public d: ClientService) { }
+  confirmThis(message: string, type: number, yesFn: () => void, noFn: () => void): any {
+    this.setConfirmation(message, type, yesFn, noFn);
+  }
 
+  setConfirmation(message: string, type: number, yesnFn: () => void, noFn: () => void): any {
+    const that = this;
+
+    if (type == 1) {
+      this.subjectButtonNoName.next("Vefify")
+      this.subjectButtonYesName.next("Confirmed")
+    }
+    else if(type==0) {
+      this.subjectButtonYesName.next("Yes")
+      this.subjectButtonNoName.next("No")
+
+    }
+    this.subject.next({
+      type: 'confirm',
+      text: message,
+      yesFn(): any {
+
+        that.subject.next(false); // This will close the modal  
+
+        yesnFn();
+        // that.d.deleteClient(2)
+      },
+      noFn(): any {
+        that.subject.next(false);
+        noFn();
+      }
+    });
+
+
+
+  }
+
+
+  getMessage(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
+  //getter and setter 
   public get subject() {
     return this._subject;
   }
   public set subject(value) {
     this._subject = value;
+  }
+
+  public get subjectButtonYesName() {
+    return this._subjectButtonYesName;
+  }
+  public set subjectButtonYesName(value) {
+    this._subjectButtonYesName = value;
+  }
+
+  public get subjectButtonNoName() {
+    return this._subjectButtonNoName;
+  }
+  public set subjectButtonNoName(value) {
+    this._subjectButtonNoName = value;
   }
 }

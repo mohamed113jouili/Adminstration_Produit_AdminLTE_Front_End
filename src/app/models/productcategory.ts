@@ -4,6 +4,7 @@ export interface ProductCategory {
     id?:number
     name?: string,
     description?: string,
-    products?: Array<Product>
+    products?: Array<Product>,
+    index?:number
 
 }

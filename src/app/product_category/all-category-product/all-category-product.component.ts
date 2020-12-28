@@ -31,6 +31,9 @@ export class AllCategoryProductComponent implements OnInit {
     this.router.navigateByUrl("/admin/add-product-category")
   }
 
+  navigatetoAllProduct() {
+    this.router.navigateByUrl("/admin/all-product")
+  }
 
   deleteCategoryProduct() {
 
@@ -39,13 +42,30 @@ export class AllCategoryProductComponent implements OnInit {
     const that = this;
 
     this._subjectproductcategory.next(id);
-    this.dialogService.confirmThis("Are you sure to delete?", function () {
+    this.dialogService.confirmThis("Are you sure to delete?",0, function () {
+
+      //that.categoryproductService.deleteCategoryProduct(that._subjectproductcategory.value)
+     that.showOtherDialog(id);
+
+    }, function () {
+
+
+    })
+
+
+  }
+
+  showOtherDialog(id: number) {
+    const that = this;
+
+    this._subjectproductcategory.next(id);
+    this.dialogService.confirmThis("removal of this category may remove products related to this category",1, function () {
 
       that.categoryproductService.deleteCategoryProduct(that._subjectproductcategory.value)
 
     }, function () {
 
-
+      that.navigatetoAllProduct()
     })
 
 

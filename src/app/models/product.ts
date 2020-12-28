@@ -6,5 +6,6 @@ export interface Product {
     description?: string,
     price?: number,
     availableStock?: number,
-    categoryProduct?: ProductCategory
+    categoryProduct?: ProductCategory,
+   
 }

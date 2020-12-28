@@ -41,7 +41,7 @@ export class AllClientComponent implements OnInit {
     const that = this;
 
     this.subjecidclient.next(id);
-    this.dialogService.confirmThis("Are you sure to delete?", function () {
+    this.dialogService.confirmThis("Are you sure to delete?",0, function () {
 
       that.clientService.deleteClient(that.subjecidclient.value)
 

@@ -36,7 +36,7 @@ export class AllProductComponent implements OnInit {
     const that = this;
 
     this._subjectproduct.next(id);
-    this.dialogService.confirmThis("Are you sure to delete?", function () {
+    this.dialogService.confirmThis("Are you sure to delete?",0, function () {
 
       that.productService.deleteProduct(that._subjectproduct.value)
 

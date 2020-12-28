@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
 import { ProductCategory } from '../models/productcategory';
+import { ProductCategoryService } from './product-category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class ProductService {
   public subjectSelectCat = new BehaviorSubject<ProductCategory>({});
 
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,public categoryproductService: ProductCategoryService) { }
 
 
 
@@ -95,9 +96,11 @@ export class ProductService {
     this.getProductByid(id).toPromise().then(
 
       rep => {
-        console.log(rep)
+        //console.log(rep)
 
         this.subjectProduct.next(rep)
+        this.subjectSelectCat.next(rep.categoryProduct!)
+        this.categoryproductService.subjectLastSelectCategoryProduct.next(rep.categoryProduct!)
 
 
       },

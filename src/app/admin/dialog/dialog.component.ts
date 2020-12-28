@@ -7,6 +7,8 @@ import { DialogService } from 'src/app/services/dialog.service';
   styleUrls: ['./dialog.component.css']
 })
 export class DialogComponent implements OnInit {
+  btYn!:string;
+  btNn!:string;
 
   message: any;  
   constructor(  
@@ -25,5 +27,10 @@ export class DialogComponent implements OnInit {
          ;
           
       });  
+
+
+      this.confirmDialogService.subjectButtonYesName.subscribe(btyn=>{this.btYn=btyn})
+      this.confirmDialogService.subjectButtonNoName.subscribe(btnn=>{this.btNn=btnn})
+
   } 
 }
