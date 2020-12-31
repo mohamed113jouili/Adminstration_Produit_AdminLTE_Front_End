@@ -91,14 +91,23 @@
               <div class="form-group">
                 <label>Phone Number<span class="obligatoire"> * </span> </label>
 
-                <input [ngClass]="{'form-control':true,
-              'is-valid':clientService.validatePhoneNumber(clientService.subjectClient.value.phoneNumber!)}"
-                  type="text" appPhoneMask formControlName="phoneNumber" id="phone-number"
-                  [(ngModel)]="clientService.subjectClient.value.phoneNumber" placeholder="(216) (581)-3140">
+                <ngx-intl-tel-input 
+                [(ngModel)]="clientService.subjectClient.value.phoneNumber"
+                [ngClass]="{'form-control':true,'mystyle':true,
+                'is-valid':clientService.validatePhoneNumber(clientService.subjectClient.value.phoneNumber!)}"
+                 [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Tunisia"  [tooltipField]="TooltipLabel.Name"
+                [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phoneNumber"
+                >
+              </ngx-intl-tel-input>
+             
               </div>
-
             </div>
-
+            
+            <p>     </p>
             <div class="col-md-4 pr-3">
               <div class="form-group">
                 <label>Zipcode</label>

@@ -59,7 +59,7 @@ export class AllCategoryProductComponent implements OnInit {
     const that = this;
 
     this._subjectproductcategory.next(id);
-    this.dialogService.confirmThis("removal of this category may remove products related to this category",1, function () {
+    this.dialogService.confirmThis("removal of this category may remove products related to this category !!!",1, function () {
 
       that.categoryproductService.deleteCategoryProduct(that._subjectproductcategory.value)
 

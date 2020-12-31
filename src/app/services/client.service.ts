@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
+import { PrefixNot } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Client } from '../models/client';
+import { Prefix } from '../models/prefix';
 
 
 @Injectable({
@@ -147,7 +149,14 @@ export class ClientService {
   }
 
 
+//search 
 
+search(){
+  let g:Prefix 
+
+  
+
+}
 
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CountryISO, PhoneNumberFormat, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Client } from 'src/app/models/client';
 import { ClientService } from 'src/app/services/client.service';
 import { ErrorService } from 'src/app/services/error.service';
@@ -9,20 +10,35 @@ import { ErrorService } from 'src/app/services/error.service';
 @Component({
   selector: 'app-edit-add-client',
   templateUrl: './edit-add-client.component.html',
-  styleUrls: ['./edit-add-client.component.css'],
+  styleUrls: ['./edit-add-client.component.scss'],
   providers: [ErrorService]
 
 })
 export class EditAddClientComponent implements OnInit {
+  separateDialCode = false;
+  SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+	phoneForm = new FormGroup({
+		phone: new FormControl(undefined, [Validators.required])
+	});
+
+	changePreferredCountries() {
+		this.preferredCountries = [CountryISO.India, CountryISO.Canada];
+	}
   clientForm!: FormGroup;
   inputDate = "12/3/2020"
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public clientService: ClientService, private arouter: ActivatedRoute) { }
+    public clientService: ClientService, private arouter: ActivatedRoute, public es:ErrorService) { }
 
   ngOnInit(): void {
     this.initClientForm();
     this.initEditClient();
+
+
 
   }
 

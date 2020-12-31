@@ -27,7 +27,7 @@
           <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row mdiv ">
               <div class="col-sm-12 col-md-6">
-                <div class="dt-buttons btn-group flex-wrap"> <button
+                <div class="dt-buttons btn-group flex-wrap"> <button  c
                     class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1"
                     type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5"
                     tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> <button
@@ -42,7 +42,7 @@
                         visibility</span></button></div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-4 marg">
+              <div class="col-sm-12 col-md-4 ">
                 <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search"
                       class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div>
               </div>
@@ -157,19 +157,13 @@
 </div>
 <script>
   $(function () {
+
+    console.log("yes ... ")
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+  
   });
 </script>
 

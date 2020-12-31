@@ -24,6 +24,7 @@ import { HttpErrorInterceptor } from './error_interceptor/httpErrorInterceptor '
 import { DialogComponent } from './admin/dialog/dialog.component';
 import { DialogService } from './services/dialog.service';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 
@@ -31,6 +32,7 @@ const appRoutes: Routes =
   [
     // { path: '',  redirectTo: '/login', pathMatch: 'full' },
 
+    { path: 'test', component: TestComponent },
 
 
     // { path: 'login', component: LoginComponent },
@@ -97,7 +99,8 @@ exports:[
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxIntlTelInputModule,
 
   ],
   providers: [
