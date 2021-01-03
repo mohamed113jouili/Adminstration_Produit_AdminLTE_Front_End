@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountryISO, PhoneNumberFormat, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Client } from 'src/app/models/client';
+import { PhoneNumber } from 'src/app/models/phonenumber';
 import { ClientService } from 'src/app/services/client.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { ErrorService } from 'src/app/services/error.service';
 
 
@@ -11,32 +13,34 @@ import { ErrorService } from 'src/app/services/error.service';
   selector: 'app-edit-add-client',
   templateUrl: './edit-add-client.component.html',
   styleUrls: ['./edit-add-client.component.scss'],
-  providers: [ErrorService]
+  providers: []
 
 })
 export class EditAddClientComponent implements OnInit {
   separateDialCode = false;
   SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
-	CountryISO = CountryISO;
+  TooltipLabel = TooltipLabel;
+  CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	phoneForm = new FormGroup({
-		phone: new FormControl(undefined, [Validators.required])
-	});
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 
-	changePreferredCountries() {
-		this.preferredCountries = [CountryISO.India, CountryISO.Canada];
-	}
   clientForm!: FormGroup;
-  inputDate = "12/3/2020"
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public clientService: ClientService, private arouter: ActivatedRoute, public es:ErrorService) { }
+    public clientService: ClientService, private arouter: ActivatedRoute, public es: ErrorService,
+    public dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.initClientForm();
     this.initEditClient();
+
+    this.es.objectError.subscribe(se => {
+
+      if (se.type == 100) {
+
+        this.showErrorDialog(this.dialogService.message(se.name!));
+      }
+    })
 
 
 
@@ -62,10 +66,11 @@ export class EditAddClientComponent implements OnInit {
 
 
     let client: Client = this.clientForm.value;
+    client.phoneNumber = this.clientService.subjectvalidtePhoneNumber.value.e164Number
+    console.log("this.clientForm.value" + client.phoneNumber);
+    //console.log(this.updatePhoneNumberFormat(client))
 
-    console.log(this.updatePhoneNumberFormat(client))
-
-    this.clientService.saveClient(this.updatePhoneNumberFormat(client)).toPromise().then(
+    this.clientService.saveClient(client).toPromise().then(
 
       rep => {
         console.log(rep)
@@ -81,8 +86,10 @@ export class EditAddClientComponent implements OnInit {
   //update client 
   updateClient(id: number) {
     let client: Client = this.clientForm.value;
-    console.log(this.updatePhoneNumberFormat(client))
-    this.clientService.updateClient(id, this.updatePhoneNumberFormat(client)).toPromise().then(
+
+    client.phoneNumber = this.clientService.subjectvalidtePhoneNumber.value.e164Number
+
+    this.clientService.updateClient(id, client).toPromise().then(
 
       rep => {
         console.log(rep)
@@ -111,8 +118,14 @@ export class EditAddClientComponent implements OnInit {
     });
   }
 
+  onChange(event: PhoneNumber) {
 
+    this.clientService.subjectvalidtePhoneNumber.next(event)
+    //if(event.e164Number!=null){
+    // console.log(event.e164Number);
 
+    //}
+  }
 
   initEditClient() {
     this.arouter.paramMap.subscribe(params => {
@@ -121,8 +134,10 @@ export class EditAddClientComponent implements OnInit {
         {
           this.clientService.initEditClient(Number(params.get('id')));
           this.clientService.subjecttitleButton.next("Update Client");
+          this.clientService.subjecttitleHedar.next("UPDATE CLIENT ");
           this.clientService.subjectIsUpdate.next(true);
           this.clientService.subjectCurrentEditId.next(Number(params.get('id')));
+
         }
 
       }
@@ -136,6 +151,8 @@ export class EditAddClientComponent implements OnInit {
           this.clientService.subjectClient.value.email = ""
           this.clientService.subjectClient.value.phoneNumber = ""
           this.clientService.subjecttitleButton.next("Add  Client");
+          this.clientService.subjecttitleHedar.next("ADD NEW CLIENT ");
+
           this.clientService.subjectIsUpdate.next(false);
         }
 
@@ -155,7 +172,26 @@ export class EditAddClientComponent implements OnInit {
   }
 
 
-  updatePhoneNumberFormat(client: Client) {
+  navigatetoAllClientt() {
+    this.router.navigateByUrl("/admin/all-client")
+  }
+  showErrorDialog(message: string) {
+    const that = this;
+
+    this.dialogService.confirmThis(message, 2, function () {
+
+
+    }, function () {
+
+    })
+
+
+  }
+
+
+
+
+  /* updatePhoneNumberFormat(client: Client) {
     var array: string[] = Array.from(client.phoneNumber!);
 
     let correctPhoneNumberFormat = ""
@@ -181,9 +217,5 @@ export class EditAddClientComponent implements OnInit {
     return client;
 
 
-  }
-
-  navigatetoAllClientt() {
-    this.router.navigateByUrl("/admin/all-client")
-  }
+  } */
 }

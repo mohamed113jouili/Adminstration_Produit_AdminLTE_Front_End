@@ -15,17 +15,19 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+    <app-dialog></app-dialog>
+
     <!-- SELECT2 EXAMPLE -->
     <div class="card card-default card-primary">
       <div class="card-header">
-        <h3 class="card-title">Add New Client </h3>
+        <h3 class="card-title">{{clientService.subjecttitleHedar.value}}  </h3>
 
 
       </div>
      
       <!-- /.card-header -->
       <div class="card-body">
-        <form [formGroup]="clientForm" (ngSubmit)="addOReditClient()">
+        <form #f="ngForm" [formGroup]="clientForm" (ngSubmit)="addOReditClient()">
           <div class="row">
 
             <div class="col-md-3 px-1">
@@ -90,20 +92,24 @@
             <div class="col-md-4 px-2">
               <div class="form-group">
                 <label>Phone Number<span class="obligatoire"> * </span> </label>
-
                 <ngx-intl-tel-input 
+                (ngModelChange)="onChange($event)"
+
                 [(ngModel)]="clientService.subjectClient.value.phoneNumber"
+              
+
                 [ngClass]="{'form-control':true,'mystyle':true,
-                'is-valid':clientService.validatePhoneNumber(clientService.subjectClient.value.phoneNumber!)}"
-                 [preferredCountries]="preferredCountries"
-                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-                [selectedCountryISO]="CountryISO.Tunisia"  [tooltipField]="TooltipLabel.Name"
-                [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phoneNumber"
-                >
-              </ngx-intl-tel-input>
-             
+                'is-valid':clientService.validatePhoneNumber()!}"
+                [preferredCountries]="preferredCountries" 
+               [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+               [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+               [selectedCountryISO]="CountryISO.Tunisia"  [tooltipField]="TooltipLabel.Name"
+               [phoneValidation]="true" [separateDialCode]="separateDialCode"
+              name="phone" formControlName="phoneNumber"
+               >
+             </ngx-intl-tel-input>
+            
+
               </div>
             </div>
             

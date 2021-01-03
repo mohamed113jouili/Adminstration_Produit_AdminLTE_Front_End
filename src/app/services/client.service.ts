@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { PrefixNot } from '@angular/compiler';
+import { PrefixNot, ReturnStatement } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Client } from '../models/client';
+import { PhoneNumber } from '../models/phonenumber';
 import { Prefix } from '../models/prefix';
 
 
@@ -16,12 +17,17 @@ export class ClientService {
   private _listSubjectClient = new BehaviorSubject<Client[]>([]);
   private _subjectClient = new BehaviorSubject<Client>({});
   private _subjecttitleButton = new BehaviorSubject<String>("Add  Client");
+  private _subjecttitleHedar = new BehaviorSubject<String>("");
+
+
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
 
   //validate 
   private _subjectvalidteFirstName = new BehaviorSubject<boolean>(false);
   private _subjectvalidteEmail = new BehaviorSubject<boolean>(false);
+  private _subjectvalidtePhoneNumber = new BehaviorSubject<PhoneNumber>({});
+
 
 
 
@@ -125,22 +131,25 @@ export class ClientService {
     const regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regularExpression.test(String(email).toLowerCase());
   }
-  ///^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im    
-  ///
-  validatePhoneNumber(phoneNumber: string) {
 
-    const regularExpression = /^[(]?[0-9]{3}[)]?[-\s\.]?[(]?[0-9]{3}?[)][-\s\.]?[0-9]{3,6}$/
 
-    return regularExpression.test(String(phoneNumber));
+  validatePhoneNumber() {
+    if (this.subjectvalidtePhoneNumber.value != null) {
+      return this.subjectvalidtePhoneNumber.value.e164Number?.length! > 9 &&
+        this.subjectvalidtePhoneNumber.value.e164Number?.length! < 15
+
+    }
+    else {
+      return false;
+    }
+
   }
 
-
-  //validate after send email format ,firstname, phonenumber
   validateSend() {
 
 
     if (this.subjectClient.value.firstname!.length > 3 && this.validateEmail(this.subjectClient.value.email!) &&
-      this.validatePhoneNumber(this.subjectClient.value.phoneNumber!) && this.subjectClient.value.address!.length > 5) {
+      this.validatePhoneNumber() && this.subjectClient.value.address!.length > 5) {
 
       return true;
     }
@@ -149,14 +158,14 @@ export class ClientService {
   }
 
 
-//search 
+  //search 
 
-search(){
-  let g:Prefix 
+  search() {
+    let g: Prefix
 
-  
 
-}
+
+  }
 
 
 
@@ -193,5 +202,25 @@ search(){
   public set subjectvalidteEmail(value) {
     this._subjectvalidteEmail = value;
   }
+
+  public get subjectvalidtePhoneNumber() {
+    return this._subjectvalidtePhoneNumber;
+  }
+  public set subjectvalidtePhoneNumber(value) {
+    this._subjectvalidtePhoneNumber = value;
+  }
+  public get subjecttitleHedar() {
+    return this._subjecttitleHedar;
+  }
+  public set subjecttitleHedar(value) {
+    this._subjecttitleHedar = value;
+  }
+  /*  validatePhoneNumber(phoneNumber: string) {
+   this.subjectClient.value.phoneNumber=phoneNumber
+  // console.log("phoneNumber  "+phoneNumber)
+   const regularExpression = /^[(]?[0-9]{3}[)]?[-\s\.]?[(]?[0-9]{3}?[)][-\s\.]?[0-9]{3,6}$/
+ 
+   return regularExpression.test(String(phoneNumber));
+ } */
 
 }

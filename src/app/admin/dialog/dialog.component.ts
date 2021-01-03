@@ -12,7 +12,7 @@ export class DialogComponent implements OnInit {
 
   message: any;  
   constructor(  
-      private confirmDialogService: DialogService  
+      public confirmDialogService: DialogService  
   ) { }  
 
   ngOnInit(): any {  

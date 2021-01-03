@@ -21,10 +21,18 @@ export class ErrorService {
   }
 
 
+  
 
 
+saveError(error:string){
 
 
+let obje:SubErrorResponse=JSON.parse(error.toString())
+
+this.objectError.next(obje);
+this.subjectDuplicateError.next(error)
+
+}
 
 
 

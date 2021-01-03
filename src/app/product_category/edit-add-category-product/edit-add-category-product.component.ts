@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/services/dialog.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 
@@ -16,13 +17,19 @@ export class EditAddCategoryProductComponent implements OnInit {
 
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute, public errorService: ErrorService) { }
+    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute,public es: ErrorService,
+    public dialogService: DialogService) { }
 
   ngOnInit(): void {
 
     this.initCatForm();
     this.initEditCategoryProduct();
-    // this.errorService.subjectIsError.next(true);
+    this.es.objectError.subscribe(se => {
+
+      if (se.type == 100) {
+        this.showErrorDialog(this.dialogService.message(se.name!));
+      }
+    })
   }
 
 
@@ -61,6 +68,7 @@ export class EditAddCategoryProductComponent implements OnInit {
         {
           this.categoryproductService.initEditCategoryProduct(Number(params.get('id')));
           this.categoryproductService.subjecttitleButton.next("Update Category Product");
+          this.categoryproductService.subjecttitleHeadar.next("UPDATE CATEGORY PRODUCT");
           this.categoryproductService.subjectIsUpdate.next(true);
           this.categoryproductService.subjectCurrentEditId.next(Number(params.get('id')));
         }
@@ -71,6 +79,8 @@ export class EditAddCategoryProductComponent implements OnInit {
           this.categoryproductService.subjectCategoryProduct.value.name = ""
           this.categoryproductService.subjectCategoryProduct.value.description = ""
           this.categoryproductService.subjecttitleButton.next("Add Category Product");
+          this.categoryproductService.subjecttitleHeadar.next("ADD CATEGORY PRODUCT");
+
           this.categoryproductService.subjectIsUpdate.next(false);
         }
 
@@ -98,7 +108,18 @@ export class EditAddCategoryProductComponent implements OnInit {
     )
 
   }
+  showErrorDialog(message: string) {
+    const that = this;
 
+    this.dialogService.confirmThis(message, 2, function () {
+
+
+    }, function () {
+
+    })
+
+
+  }
   updateCategoryProductt(id: number) {
     console.log(this.catForm.value)
     this.categoryproductService.updateCategoryProduct(id, this.catForm.value).toPromise().then(
@@ -116,13 +137,7 @@ export class EditAddCategoryProductComponent implements OnInit {
   }
 
 
-  isError() {
-
-    this.errorService.subjectIsError.subscribe(v => { this.iserror = v })
-    this.iserror = this.errorService.subjectIsError.value
-    console.log(this.iserror)
-
-  }
+  
 
 
 

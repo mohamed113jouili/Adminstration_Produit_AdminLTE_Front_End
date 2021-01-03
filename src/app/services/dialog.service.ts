@@ -12,6 +12,8 @@ export class DialogService {
 
   private _subjectButtonNoName = new BehaviorSubject<string>("No");
 
+  private _subjectisvisible = new BehaviorSubject<boolean>(false);
+
 
 
   constructor(public d: ClientService) { }
@@ -23,12 +25,22 @@ export class DialogService {
     const that = this;
 
     if (type == 1) {
+      this.subjectisvisible.next(false);
+
       this.subjectButtonNoName.next("Vefify")
       this.subjectButtonYesName.next("Confirmed")
     }
-    else if(type==0) {
+    else if (type == 0) {
+      this.subjectisvisible.next(false);
+
       this.subjectButtonYesName.next("Yes")
       this.subjectButtonNoName.next("No")
+
+    }
+    else if (type == 2) {
+      this.subjectButtonYesName.next("Confirm")
+      this.subjectisvisible.next(true);
+
 
     }
     this.subject.next({
@@ -55,7 +67,39 @@ export class DialogService {
   getMessage(): Observable<any> {
     return this.subject.asObservable();
   }
+  message(mess: string) {
+    let mesage: string = "";
+    let messageEmail: string = "this Email is already used , please enter a new one !!!"
+    let messagePhoneNumber: string = "this Phone Number is already in use , please enter a new one !!!"
+    let messageProductName: string = "this Product  is already exists !!!"
+    let messageProductCat: string = "this Category Product is already exists !!!"
 
+
+    switch (mess) {
+
+
+      case "clie_email":
+        mesage = messageEmail;
+        break;
+
+      case "clie_phone":
+        mesage = messagePhoneNumber
+        break;
+      case "pro_name":
+        mesage = messageProductName
+        break;
+      case "clie_phone":
+        mesage = messagePhoneNumber
+        break;
+      case "cap_name":
+        mesage = messageProductCat
+        break;
+
+    }
+
+    return mesage;
+
+  }
   //getter and setter 
   public get subject() {
     return this._subject;
@@ -77,4 +121,11 @@ export class DialogService {
   public set subjectButtonNoName(value) {
     this._subjectButtonNoName = value;
   }
+  public get subjectisvisible() {
+    return this._subjectisvisible;
+  }
+  public set subjectisvisible(value) {
+    this._subjectisvisible = value;
+  }
+
 }

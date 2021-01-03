@@ -14,6 +14,8 @@ export class ProductCategoryService {
   private _listSubjectCategoryProduct = new BehaviorSubject<ProductCategory[]>([]);
   private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>({});
   private _subjecttitleButton = new BehaviorSubject<String>("");
+  private _subjecttitleHeadar = new BehaviorSubject<String>("");
+ 
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
 
@@ -221,7 +223,12 @@ export class ProductCategoryService {
     this._listSubjectupdateCategoryProduct = value;
   }
 
-
+  public get subjecttitleHeadar() {
+    return this._subjecttitleHeadar;
+  }
+  public set subjecttitleHeadar(value) {
+    this._subjecttitleHeadar = value;
+  }
  
   /*  */
 }

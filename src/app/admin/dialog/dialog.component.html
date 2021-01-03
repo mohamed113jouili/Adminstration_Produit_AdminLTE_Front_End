@@ -15,7 +15,8 @@
                                 <button class="btn btn-danger">{{btYn}}</button>    
                             </a>    
                             <a (click)="message.noFn()">    
-                                <button class="btn btn-primary">{{btNn}}</button>    
+                                <button [ngClass]="{'btn btn-primary':true,'visb':confirmDialogService.subjectisvisible.value}">{{btNn}}</button>    
+  
                             </a>    
                         </p>    
                     </div>    

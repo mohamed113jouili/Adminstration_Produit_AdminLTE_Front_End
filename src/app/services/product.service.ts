@@ -18,6 +18,8 @@ export class ProductService {
   private _listSubjectProduct = new BehaviorSubject<Product[]>([]);
   private _subjectProduct = new BehaviorSubject<Product>({});
   private _subjecttitleButton = new BehaviorSubject<String>("");
+  private _subjecttitleHedar = new BehaviorSubject<String>("");
+  
   private _subjectIsUpdate = new BehaviorSubject<boolean>(false);
   private _subjectCurrentEditId = new BehaviorSubject<number>(0);
 
@@ -145,7 +147,7 @@ export class ProductService {
     return this.subjectProduct.value.price! > 0
   }
 
-
+  
 
   /** access method getter */
   public get listSubjectProduct() {
@@ -187,7 +189,12 @@ export class ProductService {
   public set subjectvalidtePrice(value) {
     this._subjectvalidtePrice = value;
   }
-
+  public get subjecttitleHedar() {
+    return this._subjecttitleHedar;
+  }
+  public set subjecttitleHedar(value) {
+    this._subjecttitleHedar = value;
+  }
 
 
 }

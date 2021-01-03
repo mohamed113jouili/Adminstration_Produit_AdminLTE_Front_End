@@ -31,11 +31,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         // server-side error
                         this.serror = JSON.stringify(error.error);
 
-                        this.errorService.subjectIsError.next(true);
+                        this.errorService.saveError(this.serror)
+                    
 
                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
                     }
-                    window.alert(this.serror);
+                    //window.alert(this.serror);
                     return throwError(errorMessage);
                 })
             )

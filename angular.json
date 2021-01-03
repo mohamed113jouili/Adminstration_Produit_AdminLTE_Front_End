@@ -28,17 +28,22 @@
               "src/assets"
             ],
             "styles": [
+
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
               "node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-              "node_modules/admin-lte/docs_html/assets/css/adminlte.css",
-
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/admin-lte/docs_html/assets/css/adminlte.css"
             ],
             "scripts": [
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+              "node_modules/intl-tel-input/build/js/utils.js",
+
+              
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js",
               "node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
@@ -50,6 +55,7 @@
               "node_modules/admin-lte/plugins/chart.js/Chart.js",
               "node_modules/admin-lte/dist/js/pages/dashboard2.js",
               "node_modules/admin-lte/plugins/inputmask/jquery.inputmask.min.js"
+
             ]
           },
           "configurations": {

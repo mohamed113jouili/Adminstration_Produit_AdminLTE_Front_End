@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductCategory } from 'src/app/models/productcategory';
+import { DialogService } from 'src/app/services/dialog.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -27,7 +28,8 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
 
 
   constructor(private router: Router, public categoryproductService: ProductCategoryService,
-    public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute, public errorService: ErrorService) { }
+    public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute,  public es: ErrorService,
+    public dialogService: DialogService) { }
 
 
   ngOnInit(): void {
@@ -38,6 +40,13 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
 
     this.categoryproductService.initCategoryProduct();
 
+    this.es.objectError.subscribe(se => {
+console.log(se)
+      if (se.type == 100) {
+
+        this.showErrorDialog(this.dialogService.message(se.name!));
+      }
+    })
   
   }
 
@@ -75,6 +84,7 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
         {
           this.productService.initEditCategoryProduct(Number(params.get('id')));
           this.productService.subjecttitleButton.next("Update Product");
+          this.productService.subjecttitleHedar.next("UPDATE PRODUCT");
           this.productService.subjectIsUpdate.next(true);
           this.productService.subjectCurrentEditId.next(Number(params.get('id')))
        
@@ -94,6 +104,8 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
           this.productService.subjectProduct.value.availableStock = undefined
           this.productService.subjectProduct.value.price = undefined
           this.productService.subjecttitleButton.next("Add  Product");
+          this.productService.subjecttitleHedar.next("ADD NEW PRODUCT");
+
           this.productService.subjectIsUpdate.next(false);
          // this.productService.subjectProduct.next({})
 
@@ -181,6 +193,18 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
 
   }
 
+  showErrorDialog(message: string) {
+    const that = this;
+
+    this.dialogService.confirmThis(message, 2, function () {
+
+
+    }, function () {
+
+    })
+
+
+  }
   //getter and setter 
 
   public get subjectCategoryProduct() {
