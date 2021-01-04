@@ -215,12 +215,6 @@ export class ClientService {
   public set subjecttitleHedar(value) {
     this._subjecttitleHedar = value;
   }
-  /*  validatePhoneNumber(phoneNumber: string) {
-   this.subjectClient.value.phoneNumber=phoneNumber
-  // console.log("phoneNumber  "+phoneNumber)
-   const regularExpression = /^[(]?[0-9]{3}[)]?[-\s\.]?[(]?[0-9]{3}?[)][-\s\.]?[0-9]{3,6}$/
  
-   return regularExpression.test(String(phoneNumber));
- } */
 
 }

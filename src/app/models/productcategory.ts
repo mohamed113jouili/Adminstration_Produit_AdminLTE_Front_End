@@ -1,10 +1,10 @@
 import { Product } from './product';
 
 export interface ProductCategory {
-    id?:number
+    id?: number
     name?: string,
     description?: string,
     products?: Array<Product>,
-    index?:number
+    index?: number
 
 }

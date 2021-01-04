@@ -15,15 +15,14 @@ import { EditAddCategoryProductComponent } from './product_category/edit-add-cat
 import { AllProductComponent } from './product/all-product/all-product.component';
 import { EditAddProductComponent } from './product/edit-add-product/edit-add-product.component';
 import { AdminComponent } from './admin/admin/admin.component';
-import { TestComponent } from './test/test/test.component';
-import { Tes2Component } from './test/tes2/tes2.component';
+
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { HeaderComponent } from './admin/header/header.component';
 import { FooterComponent } from './admin/footer/footer.component';
 import { HttpErrorInterceptor } from './error_interceptor/httpErrorInterceptor ';
 import { DialogComponent } from './admin/dialog/dialog.component';
 import { DialogService } from './services/dialog.service';
-import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import { PhoneMaskDirective } from './directives/phone-mask.directive_not_use';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
@@ -32,7 +31,6 @@ const appRoutes: Routes =
   [
     // { path: '',  redirectTo: '/login', pathMatch: 'full' },
 
-    { path: 'test', component: TestComponent },
 
 
     // { path: 'login', component: LoginComponent },
@@ -44,7 +42,6 @@ const appRoutes: Routes =
 
       children: [
 
-        //{ path: '', redirectTo: 'all-client', pathMatch: 'full' },
 
         { path: 'dashboard', component: DashboardComponent },
 
@@ -83,8 +80,7 @@ exports:[
     AllProductComponent,
     EditAddProductComponent,
     AdminComponent,
-    TestComponent,
-    Tes2Component,
+
     DashboardComponent,
     HeaderComponent,
     FooterComponent,

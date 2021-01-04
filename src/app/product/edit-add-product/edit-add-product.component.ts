@@ -22,13 +22,13 @@ export class EditAddProductComponent implements OnInit {
   isSelected = false;
   selectedValue = ""
   selectedCat: ProductCategory = {};
-  initvalue="";
-private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.selectedCat);
-  
+  initvalue = "";
+  private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.selectedCat);
+
 
 
   constructor(private router: Router, public categoryproductService: ProductCategoryService,
-    public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute,  public es: ErrorService,
+    public productService: ProductService, private formBuilder: FormBuilder, private arouter: ActivatedRoute, public es: ErrorService,
     public dialogService: DialogService) { }
 
 
@@ -36,27 +36,27 @@ private _subjectCategoryProduct = new BehaviorSubject<ProductCategory>(this.sele
 
     this.initProForm();
     this.initEditProduct();
-    console.log("select category "+this.productService.subjectSelectCat.value.name)
+    console.log("select category " + this.productService.subjectSelectCat.value.name)
 
     this.categoryproductService.initCategoryProduct();
 
     this.es.objectError.subscribe(se => {
-console.log(se)
+      console.log(se)
       if (se.type == 100) {
 
         this.showErrorDialog(this.dialogService.message(se.name!));
       }
     })
-  
+
   }
 
   addOReditProduct() {
 
-   if (this.valdatesend()) {
+    if (this.valdatesend()) {
       this.productService.subjectIsUpdate.value == true ?
         this.updateProduct(this.productService.subjectCurrentEditId.value) :
         this.addProduct()
-    } 
+    }
 
   }
 
@@ -87,8 +87,8 @@ console.log(se)
           this.productService.subjecttitleHedar.next("UPDATE PRODUCT");
           this.productService.subjectIsUpdate.next(true);
           this.productService.subjectCurrentEditId.next(Number(params.get('id')))
-       
-      
+
+
 
           //console.log("category "+this.productService.subjectProduct.value.categoryProduct?.name )
 
@@ -107,7 +107,7 @@ console.log(se)
           this.productService.subjecttitleHedar.next("ADD NEW PRODUCT");
 
           this.productService.subjectIsUpdate.next(false);
-         // this.productService.subjectProduct.next({})
+          // this.productService.subjectProduct.next({})
 
         }
 
@@ -116,7 +116,7 @@ console.log(se)
     });
 
 
-    
+
 
   }
 
@@ -148,7 +148,7 @@ console.log(se)
 
 
 
-   this.productService.saveProduct(product).toPromise().then(
+    this.productService.saveProduct(product).toPromise().then(
 
       rep => {
         this.navigatetoAllProduct()
@@ -156,7 +156,7 @@ console.log(se)
       error => {
       }
 
-    )  
+    )
   }
 
   // update product 
@@ -182,7 +182,7 @@ console.log(se)
 
   //validate selectedCat
   validateSendCategoory() {
-    return this.productService.subjectProduct.value.categoryProduct?.name?.length!>0
+    return this.productService.subjectProduct.value.categoryProduct?.name?.length! > 0
   }
 
   //valdate send 

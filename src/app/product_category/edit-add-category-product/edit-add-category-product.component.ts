@@ -17,7 +17,7 @@ export class EditAddCategoryProductComponent implements OnInit {
 
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute,public es: ErrorService,
+    public categoryproductService: ProductCategoryService, public arouter: ActivatedRoute, public es: ErrorService,
     public dialogService: DialogService) { }
 
   ngOnInit(): void {
@@ -137,7 +137,7 @@ export class EditAddCategoryProductComponent implements OnInit {
   }
 
 
-  
+
 
 
 

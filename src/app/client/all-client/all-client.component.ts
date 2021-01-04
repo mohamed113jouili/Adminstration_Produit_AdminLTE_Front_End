@@ -17,9 +17,7 @@ export class AllClientComponent implements OnInit {
   collectionSize = 12
   private _subjecidclient = new BehaviorSubject<number>(0);
 
-  test(){
-    console.log("test click button copy ....")
-  }
+  
   constructor(private router: Router, public clientService: ClientService, public dialogService: DialogService) { }
 
   ngOnInit(): void {

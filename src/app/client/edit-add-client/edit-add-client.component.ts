@@ -191,31 +191,4 @@ export class EditAddClientComponent implements OnInit {
 
 
 
-  /* updatePhoneNumberFormat(client: Client) {
-    var array: string[] = Array.from(client.phoneNumber!);
-
-    let correctPhoneNumberFormat = ""
-
-    for (let i = 0; i < array.length; i++) {
-
-
-      if (array[i] == "(" || array[i] == ")" || array[i] == "-") {
-
-        array.splice(i, 1)
-      }
-
-      correctPhoneNumberFormat = correctPhoneNumberFormat + array[i];
-
-    }
-    client.phoneNumber = "";
-    client.phoneNumber = correctPhoneNumberFormat;
-    if (!correctPhoneNumberFormat.startsWith("+")) {
-      client.phoneNumber = "+" + correctPhoneNumberFormat;
-
-    }
-
-    return client;
-
-
-  } */
 }

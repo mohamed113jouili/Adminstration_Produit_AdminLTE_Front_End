@@ -16,7 +16,7 @@ import { ErrorService } from '../services/error.service';
 export class HttpErrorInterceptor implements HttpInterceptor {
     sub: SubErrorResponse = {};
     serror: string = "{}";
-    constructor(public  errorService: ErrorService) { }
+    constructor(public errorService: ErrorService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
             .pipe(
@@ -32,11 +32,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         this.serror = JSON.stringify(error.error);
 
                         this.errorService.saveError(this.serror)
-                    
+
 
                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
                     }
-                    //window.alert(this.serror);
                     return throwError(errorMessage);
                 })
             )
@@ -44,5 +43,5 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
 
-    
+
 }
