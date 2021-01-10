@@ -1,10 +1,19 @@
+(This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.)
+
 # AdminProduct
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+it is a simple project product adminstration with an integration template admin-lte
 
-## Development server
+follow these steps to understand
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## install template  admin-lte in angular 
+
+$ npm install angular-admin-lte --save
+ 
+ 
+ follow this vedio (https://www.youtube.com/watch?v=dlBb1Z_8FiI)
+
 
 ## Code scaffolding
 
