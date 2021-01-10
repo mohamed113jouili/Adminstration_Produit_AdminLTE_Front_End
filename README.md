@@ -11,12 +11,12 @@ it is a simple project product adminstration with an integration template admin-
 
 $ npm install angular-admin-lte --save
  
- create (DashboardComponent,AdminComponent,FooterComponent ,HeaderComponent) 
+ Creat Component (DashboardComponent,AdminComponent,FooterComponent ,HeaderComponent) 
  
  
  follow this vedio (https://www.youtube.com/watch?v=dlBb1Z_8FiI)
 
-##  Creat Component  AllClientComponent and EditAddClientComponent
+##  Client --> Creat Component  AllClientComponent and EditAddClientComponent
 
 Show all client (AllClientComponent)
 
@@ -30,18 +30,29 @@ Edit client (EditAddClientComponent)
 
 ![ec](https://user-images.githubusercontent.com/61349826/104130914-adf82f80-5373-11eb-9f6a-dbff5a7375f4.png)
 
-Email  Control 
+Email  Control (HttpErrorInterceptor.ts , ErrorService.ts)
 
 ![ccc](https://user-images.githubusercontent.com/61349826/104131240-8b671600-5375-11eb-873c-921c4a883eca.png)
 
-phonenumber control 
+phonenumber control (HttpErrorInterceptor.ts , ErrorService.ts)
 
 ![pcc](https://user-images.githubusercontent.com/61349826/104131331-05979a80-5376-11eb-9b62-20396f962371.png)
 
 
-## Running unit tests
+## Product --> Creat Component  AllProductComponent  and EditAddProductComponent
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Show all Product (AllProductComponent)
+
+![sp](https://user-images.githubusercontent.com/61349826/104132475-c4a38400-537d-11eb-964c-fb39fc7cb327.png)
+
+ Add new Product (EditAddProductComponent)
+
+![cp](https://user-images.githubusercontent.com/61349826/104132477-c8370b00-537d-11eb-9829-6b586d1a6eb4.png)
+
+Edit Product (EditAddProductComponent)
+
+![ep](https://user-images.githubusercontent.com/61349826/104132479-cb31fb80-537d-11eb-9766-3dd6538eae69.png)
+
 
 ## Running end-to-end tests
 
