@@ -4,6 +4,9 @@
 
 it is a simple project product adminstration with an integration template admin-lte
 
+before starting you must understand the backend part wwith SpringBoot
+https://github.com/mohamed113jouili/Adminstration_Produit_Back_End/blob/master/README.md
+
 
 
 
