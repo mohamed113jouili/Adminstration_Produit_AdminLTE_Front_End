@@ -27,11 +27,17 @@ Show all client (AllClientComponent)
 ![cc](https://user-images.githubusercontent.com/61349826/104130911-ab95d580-5373-11eb-9d92-80c2c088f1e0.png)
 
 Edit client (EditAddClientComponent)
+
 ![ec](https://user-images.githubusercontent.com/61349826/104130914-adf82f80-5373-11eb-9f6a-dbff5a7375f4.png)
 
-## Build
+Email  Control 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![ccc](https://user-images.githubusercontent.com/61349826/104131240-8b671600-5375-11eb-873c-921c4a883eca.png)
+
+phonenumber control 
+
+![pcc](https://user-images.githubusercontent.com/61349826/104131331-05979a80-5376-11eb-9b62-20396f962371.png)
+
 
 ## Running unit tests
 
