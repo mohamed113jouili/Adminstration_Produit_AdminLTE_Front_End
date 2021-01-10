@@ -53,6 +53,14 @@ Edit Product (EditAddProductComponent)
 
 ![ep](https://user-images.githubusercontent.com/61349826/104132479-cb31fb80-537d-11eb-9766-3dd6538eae69.png)
 
+Product name   Control (HttpErrorInterceptor.ts , ErrorService.ts)
+
+![ccp](https://user-images.githubusercontent.com/61349826/104132629-eb15ef00-537e-11eb-98ec-4ad936a98076.png)
+
+Delete product 
+
+![dp](https://user-images.githubusercontent.com/61349826/104132631-ec471c00-537e-11eb-88c8-e6faa0740ff0.png)
+
 
 ## Running end-to-end tests
 
