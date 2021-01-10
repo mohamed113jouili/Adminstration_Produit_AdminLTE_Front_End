@@ -1,8 +1,10 @@
-(This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.)
+
 
 # AdminProduct
 
-it is a simple project product adminstration with an integration template admin-lte
+it is a simple project product adminstration with an integration template admin-lte,
+
+generated with Angular version 11.0.2
 
 before starting you must understand the backend part wwith SpringBoot
 https://github.com/mohamed113jouili/Adminstration_Produit_Back_End/blob/master/README.md
