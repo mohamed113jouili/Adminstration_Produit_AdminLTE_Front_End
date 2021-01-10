@@ -62,10 +62,34 @@ Delete product
 ![dp](https://user-images.githubusercontent.com/61349826/104132631-ec471c00-537e-11eb-88c8-e6faa0740ff0.png)
 
 
-## Running end-to-end tests
+## Category-Product --> Creat Component AllCategoryProductComponent  and EditAddCategoryProductComponent
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+Show all Category-Product (AllCategoryProductComponent)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![sc-p](https://user-images.githubusercontent.com/61349826/104132870-4a283380-5380-11eb-9d69-60c7221a4df9.png)
+
+ Add new Category-Product (EditAddCategoryProductComponent)
+
+![cc-p](https://user-images.githubusercontent.com/61349826/104132878-4d232400-5380-11eb-9f72-2cbd7a2e0144.png)
+
+Edit Category-Product (EditAddCategoryProductComponent)
+
+![ec-p](https://user-images.githubusercontent.com/61349826/104132882-51e7d800-5380-11eb-8af9-8940915206ee.png)
+
+Delete  Category-Product name  
+
+![dc-p](https://user-images.githubusercontent.com/61349826/104132886-56ac8c00-5380-11eb-8aa6-238d7f3c11f2.png)
+
+
+![vc-p](https://user-images.githubusercontent.com/61349826/104132891-5e6c3080-5380-11eb-9978-5d116186f10a.png)
+
+
+Category-Product name   Control (HttpErrorInterceptor.ts , ErrorService.ts)
+
+![coc-p](https://user-images.githubusercontent.com/61349826/104132889-5a401300-5380-11eb-8f23-5ffbeb66d95b.png)
+
+
+
+
+
