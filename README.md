@@ -6,7 +6,7 @@ it is a simple project product adminstration with an integration template admin-
 
 generated with Angular version 11.0.2
 
-before starting you must understand the backend part wwith SpringBoot
+before starting you must understand the backend part with SpringBoot
 https://github.com/mohamed113jouili/Adminstration_Produit_Back_End
 
 
